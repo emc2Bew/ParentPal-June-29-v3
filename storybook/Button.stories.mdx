@@ -1,0 +1,173 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Button } from '../components/ui/Button';
+
+<Meta title="UI Components/Button" component={Button} />
+
+# Button
+
+The Button component is a versatile, accessible button that supports multiple variants, sizes, and states.
+
+## Features
+
+- **Variants**: Primary, Secondary, and Outline styles
+- **Sizes**: Small, Medium, and Large
+- **States**: Normal, Disabled, and Loading
+- **Accessibility**: Full screen reader support with proper ARIA attributes
+- **Touch Target**: Minimum 44pt touch target for accessibility compliance
+
+## Basic Usage
+
+<Canvas>
+  <Story name="Primary">
+    {() => (
+      <Button 
+        title="Primary Button" 
+        onPress={() => console.log('Primary pressed')} 
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Variants
+
+<Canvas>
+  <Story name="Variants">
+    {() => (
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <Button 
+          title="Primary" 
+          variant="primary"
+          onPress={() => console.log('Primary pressed')} 
+        />
+        <Button 
+          title="Secondary" 
+          variant="secondary"
+          onPress={() => console.log('Secondary pressed')} 
+        />
+        <Button 
+          title="Outline" 
+          variant="outline"
+          onPress={() => console.log('Outline pressed')} 
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Sizes
+
+<Canvas>
+  <Story name="Sizes">
+    {() => (
+      <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <Button 
+          title="Small" 
+          size="sm"
+          onPress={() => console.log('Small pressed')} 
+        />
+        <Button 
+          title="Medium" 
+          size="md"
+          onPress={() => console.log('Medium pressed')} 
+        />
+        <Button 
+          title="Large" 
+          size="lg"
+          onPress={() => console.log('Large pressed')} 
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## States
+
+<Canvas>
+  <Story name="States">
+    {() => (
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <Button 
+          title="Normal" 
+          onPress={() => console.log('Normal pressed')} 
+        />
+        <Button 
+          title="Disabled" 
+          disabled
+          onPress={() => console.log('Disabled pressed')} 
+        />
+        <Button 
+          title="Loading" 
+          loading
+          onPress={() => console.log('Loading pressed')} 
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Dark Mode Support
+
+The Button component automatically adapts to dark mode when the system theme changes.
+
+<Canvas>
+  <Story name="Dark Mode">
+    {() => (
+      <div style={{ backgroundColor: '#1a1a1a', padding: '24px', borderRadius: '12px' }}>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <Button 
+            title="Primary Dark" 
+            variant="primary"
+            onPress={() => console.log('Primary dark pressed')} 
+          />
+          <Button 
+            title="Secondary Dark" 
+            variant="secondary"
+            onPress={() => console.log('Secondary dark pressed')} 
+          />
+          <Button 
+            title="Outline Dark" 
+            variant="outline"
+            onPress={() => console.log('Outline dark pressed')} 
+          />
+        </div>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Button} />
+
+## Design Tokens
+
+The Button component uses the following design tokens:
+
+- **Colors**: `colors.primary`, `colors.accent`, `colors.textInverse`
+- **Typography**: `typography.fontWeight.semibold`, `typography.fontSize.*`
+- **Spacing**: `spacing.md`, `spacing.lg`, `spacing.xl`
+- **Radius**: `radius.md`
+- **Dimensions**: `dimensions.touchTarget`, `dimensions.buttonHeight.*`
+
+## Accessibility
+
+- Minimum 44pt touch target
+- Proper `accessibilityRole="button"`
+- Support for `accessibilityLabel` and `accessibilityState`
+- Screen reader compatible
+- Keyboard navigation support (web)
+
+## Usage Guidelines
+
+### Do
+- Use Primary buttons for the main action on a screen
+- Use Secondary buttons for secondary actions
+- Use Outline buttons for tertiary actions or in button groups
+- Provide clear, action-oriented button text
+- Use loading state for async operations
+
+### Don't
+- Don't use more than one Primary button per screen section
+- Don't make button text too long (keep under 3 words when possible)
+- Don't disable buttons without providing feedback about why
+- Don't use buttons for navigation (use links instead)</Canvas>

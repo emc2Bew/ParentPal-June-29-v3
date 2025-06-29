@@ -1,0 +1,6 @@
+google-cloud-pubsub==2.22.0
+google-api-python-client==2.128.0
+psycopg[binary]==3.2.1
+flask==3.0.0
+pyjwt[crypto]==2.8.0
+requests==2.31.0

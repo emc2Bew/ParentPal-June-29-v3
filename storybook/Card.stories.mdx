@@ -1,0 +1,275 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { View, Text } from 'react-native';
+import { Card } from '../components/ui/Card';
+
+<Meta title="UI Components/Card" component={Card} />
+
+# Card
+
+The Card component is a flexible container that provides consistent styling and elevation for content grouping.
+
+## Features
+
+- **Variants**: Default, Elevated, and Outlined styles
+- **Flexible Padding**: Configurable padding using design tokens
+- **Consistent Styling**: Rounded corners and proper spacing
+- **Shadow Support**: Elevation shadows for visual hierarchy
+- **Customizable**: Support for custom styles and content
+
+## Basic Usage
+
+<Canvas>
+  <Story name="Basic">
+    {() => (
+      <Card>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 8 }}>
+          Card Title
+        </Text>
+        <Text style={{ color: '#666', lineHeight: 20 }}>
+          This is a basic card with some content inside. Cards are great for grouping related information together.
+        </Text>
+      </Card>
+    )}
+  </Story>
+</Canvas>
+
+## Variants
+
+<Canvas>
+  <Story name="Variants">
+    {() => (
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <Card variant="default" style={{ width: 200 }}>
+          <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>Default Card</Text>
+          <Text style={{ color: '#666' }}>Basic card with no elevation</Text>
+        </Card>
+        
+        <Card variant="elevated" style={{ width: 200 }}>
+          <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>Elevated Card</Text>
+          <Text style={{ color: '#666' }}>Card with shadow elevation</Text>
+        </Card>
+        
+        <Card variant="outlined" style={{ width: 200 }}>
+          <Text style={{ fontWeight: 'bold', marginBottom: 8 }}>Outlined Card</Text>
+          <Text style={{ color: '#666' }}>Card with border outline</Text>
+        </Card>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Different Padding Sizes
+
+<Canvas>
+  <Story name="Padding Sizes">
+    {() => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <Card padding="sm" variant="outlined">
+          <Text style={{ fontWeight: 'bold' }}>Small Padding</Text>
+          <Text style={{ color: '#666' }}>This card uses small padding (8px)</Text>
+        </Card>
+        
+        <Card padding="md" variant="outlined">
+          <Text style={{ fontWeight: 'bold' }}>Medium Padding</Text>
+          <Text style={{ color: '#666' }}>This card uses medium padding (12px)</Text>
+        </Card>
+        
+        <Card padding="lg" variant="outlined">
+          <Text style={{ fontWeight: 'bold' }}>Large Padding</Text>
+          <Text style={{ color: '#666' }}>This card uses large padding (16px)</Text>
+        </Card>
+        
+        <Card padding="xl" variant="outlined">
+          <Text style={{ fontWeight: 'bold' }}>Extra Large Padding</Text>
+          <Text style={{ color: '#666' }}>This card uses extra large padding (24px)</Text>
+        </Card>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Content Examples
+
+<Canvas>
+  <Story name="Content Examples">
+    {() => (
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        {/* Profile Card */}
+        <Card variant="elevated" style={{ width: 250 }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
+            <div style={{ 
+              width: 48, 
+              height: 48, 
+              borderRadius: 24, 
+              backgroundColor: '#4A7C59',
+              marginRight: 12,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Text style={{ color: 'white', fontWeight: 'bold' }}>JD</Text>
+            </div>
+            <div>
+              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>John Doe</Text>
+              <Text style={{ color: '#666', fontSize: 14 }}>Software Engineer</Text>
+            </div>
+          </div>
+          <Text style={{ color: '#666', lineHeight: 20 }}>
+            Passionate about creating beautiful and functional user interfaces.
+          </Text>
+        </Card>
+
+        {/* Stats Card */}
+        <Card variant="outlined" style={{ width: 200 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 16 }}>
+            Statistics
+          </Text>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <Text style={{ color: '#666' }}>Views</Text>
+            <Text style={{ fontWeight: 'bold' }}>1,234</Text>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+            <Text style={{ color: '#666' }}>Likes</Text>
+            <Text style={{ fontWeight: 'bold' }}>567</Text>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Text style={{ color: '#666' }}>Shares</Text>
+            <Text style={{ fontWeight: 'bold' }}>89</Text>
+          </div>
+        </Card>
+
+        {/* Action Card */}
+        <Card variant="default" style={{ width: 250 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 8 }}>
+            Quick Actions
+          </Text>
+          <Text style={{ color: '#666', marginBottom: 16, lineHeight: 20 }}>
+            Perform common tasks quickly and efficiently.
+          </Text>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button style={{
+              backgroundColor: '#4A7C59',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '8px 16px',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}>
+              Primary
+            </button>
+            <button style={{
+              backgroundColor: 'transparent',
+              color: '#4A7C59',
+              border: '1px solid #4A7C59',
+              borderRadius: '6px',
+              padding: '8px 16px',
+              fontSize: '14px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}>
+              Secondary
+            </button>
+          </div>
+        </Card>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Dark Mode Support
+
+<Canvas>
+  <Story name="Dark Mode">
+    {() => (
+      <div style={{ backgroundColor: '#1a1a1a', padding: '24px', borderRadius: '12px' }}>
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <Card variant="elevated" style={{ width: 200, backgroundColor: '#2a2a2a' }}>
+            <Text style={{ fontWeight: 'bold', marginBottom: 8, color: 'white' }}>
+              Dark Card
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Card content in dark mode with proper contrast
+            </Text>
+          </Card>
+          
+          <Card variant="outlined" style={{ width: 200, backgroundColor: '#2a2a2a', borderColor: '#444' }}>
+            <Text style={{ fontWeight: 'bold', marginBottom: 8, color: 'white' }}>
+              Outlined Dark
+            </Text>
+            <Text style={{ color: '#ccc' }}>
+              Outlined card with dark theme styling
+            </Text>
+          </Card>
+        </div>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Card} />
+
+## Design Tokens
+
+The Card component uses the following design tokens:
+
+- **Colors**: `colors.surface`, `colors.border`
+- **Spacing**: `spacing.*` for padding options
+- **Radius**: `radius.lg` for rounded corners
+- **Shadows**: `shadows.md` for elevation
+
+## Accessibility
+
+- Semantic container structure
+- Proper contrast ratios
+- Screen reader compatible
+- Keyboard navigation support for interactive content
+
+## Usage Guidelines
+
+### Do
+- Use cards to group related content together
+- Maintain consistent padding within similar card types
+- Use elevation to show hierarchy and importance
+- Keep card content focused and scannable
+- Use appropriate variants for different contexts
+
+### Don't
+- Don't overcrowd cards with too much content
+- Don't use cards for single pieces of information
+- Don't nest cards too deeply
+- Don't use inconsistent spacing within cards
+- Don't make cards too narrow or too wide
+
+## Layout Patterns
+
+### Grid Layout
+Use cards in grid layouts for consistent content presentation:
+
+```jsx
+<View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16 }}>
+  <Card style={{ flex: 1, minWidth: 200 }}>
+    {/* Card content */}
+  </Card>
+  <Card style={{ flex: 1, minWidth: 200 }}>
+    {/* Card content */}
+  </Card>
+</View>
+```
+
+### List Layout
+Use cards in vertical lists for detailed content:
+
+```jsx
+<View style={{ gap: 16 }}>
+  <Card variant="outlined">
+    {/* List item content */}
+  </Card>
+  <Card variant="outlined">
+    {/* List item content */}
+  </Card>
+</View>
+```</Canvas>

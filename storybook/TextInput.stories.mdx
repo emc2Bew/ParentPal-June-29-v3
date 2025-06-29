@@ -1,0 +1,273 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { TextInput } from '../components/ui/TextInput';
+
+<Meta title="UI Components/TextInput" component={TextInput} />
+
+# TextInput
+
+The TextInput component is a fully-featured form input with label, error states, and helper text support.
+
+## Features
+
+- **Labels**: Optional labels with required indicator
+- **Error States**: Visual error styling with error messages
+- **Helper Text**: Additional context for users
+- **Focus States**: Visual feedback when focused
+- **Accessibility**: Full screen reader support
+- **Validation**: Built-in validation state handling
+
+## Basic Usage
+
+<Canvas>
+  <Story name="Basic">
+    {() => (
+      <TextInput 
+        label="Email Address"
+        placeholder="Enter your email"
+        value=""
+        onChangeText={() => {}}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## With Label and Helper Text
+
+<Canvas>
+  <Story name="With Helper Text">
+    {() => (
+      <TextInput 
+        label="Password"
+        placeholder="Enter your password"
+        helperText="Must be at least 8 characters long"
+        secureTextEntry
+        value=""
+        onChangeText={() => {}}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Required Field
+
+<Canvas>
+  <Story name="Required">
+    {() => (
+      <TextInput 
+        label="Full Name"
+        placeholder="Enter your full name"
+        required
+        value=""
+        onChangeText={() => {}}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Error State
+
+<Canvas>
+  <Story name="Error State">
+    {() => (
+      <TextInput 
+        label="Email Address"
+        placeholder="Enter your email"
+        error="Please enter a valid email address"
+        value="invalid-email"
+        onChangeText={() => {}}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Disabled State
+
+<Canvas>
+  <Story name="Disabled">
+    {() => (
+      <TextInput 
+        label="Account ID"
+        value="12345"
+        editable={false}
+        onChangeText={() => {}}
+      />
+    )}
+  </Story>
+</Canvas>
+
+## Different Input Types
+
+<Canvas>
+  <Story name="Input Types">
+    {() => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <TextInput 
+          label="Email"
+          placeholder="email@example.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Phone Number"
+          placeholder="(555) 123-4567"
+          keyboardType="phone-pad"
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Password"
+          placeholder="Enter password"
+          secureTextEntry
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Amount"
+          placeholder="0.00"
+          keyboardType="numeric"
+          value=""
+          onChangeText={() => {}}
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Form Example
+
+<Canvas>
+  <Story name="Form Example">
+    {() => (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '400px' }}>
+        <TextInput 
+          label="First Name"
+          placeholder="Enter your first name"
+          required
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Last Name"
+          placeholder="Enter your last name"
+          required
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Email Address"
+          placeholder="email@example.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          required
+          value=""
+          onChangeText={() => {}}
+        />
+        <TextInput 
+          label="Phone Number"
+          placeholder="(555) 123-4567"
+          keyboardType="phone-pad"
+          helperText="We'll only use this for account verification"
+          value=""
+          onChangeText={() => {}}
+        />
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Dark Mode Support
+
+<Canvas>
+  <Story name="Dark Mode">
+    {() => (
+      <div style={{ backgroundColor: '#1a1a1a', padding: '24px', borderRadius: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <TextInput 
+            label="Email Address"
+            placeholder="Enter your email"
+            value=""
+            onChangeText={() => {}}
+          />
+          <TextInput 
+            label="Password"
+            placeholder="Enter your password"
+            secureTextEntry
+            helperText="Must be at least 8 characters"
+            value=""
+            onChangeText={() => {}}
+          />
+          <TextInput 
+            label="Confirm Email"
+            placeholder="Re-enter your email"
+            error="Emails do not match"
+            value="different@email.com"
+            onChangeText={() => {}}
+          />
+        </div>
+      </div>
+    )}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={TextInput} />
+
+## Design Tokens
+
+The TextInput component uses the following design tokens:
+
+- **Colors**: `colors.border`, `colors.borderFocus`, `colors.error`, `colors.textPrimary`
+- **Typography**: `typography.fontSize.*`, `typography.fontWeight.medium`
+- **Spacing**: `spacing.xs`, `spacing.lg`
+- **Radius**: `radius.md`
+- **Dimensions**: `dimensions.inputHeight`
+
+## Accessibility
+
+- Proper `accessibilityLabel` from label prop
+- Support for `accessibilityState` for disabled inputs
+- Screen reader compatible
+- Keyboard navigation support
+- Focus management
+
+## Usage Guidelines
+
+### Do
+- Always provide clear, descriptive labels
+- Use helper text to provide additional context
+- Show error messages immediately after validation
+- Use appropriate keyboard types for different input types
+- Mark required fields clearly
+
+### Don't
+- Don't use placeholder text as the only label
+- Don't make error messages too technical
+- Don't disable inputs without explanation
+- Don't use generic error messages like "Invalid input"
+- Don't make labels too long or unclear
+
+## Validation Patterns
+
+### Email Validation
+```javascript
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) ? null : 'Please enter a valid email address';
+};
+```
+
+### Password Validation
+```javascript
+const validatePassword = (password) => {
+  if (password.length < 8) {
+    return 'Password must be at least 8 characters long';
+  }
+  if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+    return 'Password must contain uppercase, lowercase, and number';
+  }
+  return null;
+};
+```</Canvas>

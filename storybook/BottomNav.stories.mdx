@@ -1,0 +1,402 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { Text } from 'react-native';
+import { BottomNav } from '../components/ui/BottomNav';
+
+<Meta title="UI Components/BottomNav" component={BottomNav} />
+
+# BottomNav
+
+The BottomNav component provides a tab-based navigation interface typically placed at the bottom of the screen.
+
+## Features
+
+- **Tab Navigation**: Support for multiple navigation items
+- **Active States**: Visual indication of the current active tab
+- **Icons**: Flexible icon support with any React component
+- **Accessibility**: Full screen reader support with proper ARIA attributes
+- **Touch Targets**: Minimum 44pt touch targets for accessibility
+- **Responsive**: Adapts to different screen sizes
+
+## Basic Usage
+
+<Canvas>
+  <Story name="Basic">
+    {() => {
+      const items = [
+        {
+          id: 'home',
+          label: 'Home',
+          icon: <Text style={{ fontSize: 20 }}>🏠</Text>,
+          onPress: () => console.log('Home pressed'),
+        },
+        {
+          id: 'search',
+          label: 'Search',
+          icon: <Text style={{ fontSize: 20 }}>🔍</Text>,
+          onPress: () => console.log('Search pressed'),
+        },
+        {
+          id: 'profile',
+          label: 'Profile',
+          icon: <Text style={{ fontSize: 20 }}>👤</Text>,
+          onPress: () => console.log('Profile pressed'),
+        },
+      ];
+      
+      return (
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          <BottomNav items={items} activeItemId="home" />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## With Different Active States
+
+<Canvas>
+  <Story name="Active States">
+    {() => {
+      const items = [
+        {
+          id: 'home',
+          label: 'Home',
+          icon: <Text style={{ fontSize: 20 }}>🏠</Text>,
+          onPress: () => console.log('Home pressed'),
+        },
+        {
+          id: 'search',
+          label: 'Search',
+          icon: <Text style={{ fontSize: 20 }}>🔍</Text>,
+          onPress: () => console.log('Search pressed'),
+        },
+        {
+          id: 'notifications',
+          label: 'Notifications',
+          icon: <Text style={{ fontSize: 20 }}>🔔</Text>,
+          onPress: () => console.log('Notifications pressed'),
+        },
+        {
+          id: 'profile',
+          label: 'Profile',
+          icon: <Text style={{ fontSize: 20 }}>👤</Text>,
+          onPress: () => console.log('Profile pressed'),
+        },
+      ];
+      
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <Text style={{ marginBottom: '8px', fontWeight: 'bold' }}>Home Active</Text>
+            <BottomNav items={items} activeItemId="home" />
+          </div>
+          
+          <div>
+            <Text style={{ marginBottom: '8px', fontWeight: 'bold' }}>Search Active</Text>
+            <BottomNav items={items} activeItemId="search" />
+          </div>
+          
+          <div>
+            <Text style={{ marginBottom: '8px', fontWeight: 'bold' }}>Profile Active</Text>
+            <BottomNav items={items} activeItemId="profile" />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## With Custom Icons
+
+<Canvas>
+  <Story name="Custom Icons">
+    {() => {
+      const CustomIcon = ({ name, active }) => (
+        <div style={{
+          width: '24px',
+          height: '24px',
+          borderRadius: '12px',
+          backgroundColor: active ? '#4A7C59' : '#ccc',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <Text style={{ 
+            color: active ? 'white' : '#666', 
+            fontSize: '12px', 
+            fontWeight: 'bold' 
+          }}>
+            {name}
+          </Text>
+        </div>
+      );
+      
+      const items = [
+        {
+          id: 'dashboard',
+          label: 'Dashboard',
+          icon: <CustomIcon name="D" active={false} />,
+          onPress: () => console.log('Dashboard pressed'),
+        },
+        {
+          id: 'analytics',
+          label: 'Analytics',
+          icon: <CustomIcon name="A" active={true} />,
+          onPress: () => console.log('Analytics pressed'),
+        },
+        {
+          id: 'settings',
+          label: 'Settings',
+          icon: <CustomIcon name="S" active={false} />,
+          onPress: () => console.log('Settings pressed'),
+        },
+      ];
+      
+      return (
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          <BottomNav items={items} activeItemId="analytics" />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Five Tab Layout
+
+<Canvas>
+  <Story name="Five Tabs">
+    {() => {
+      const items = [
+        {
+          id: 'home',
+          label: 'Home',
+          icon: <Text style={{ fontSize: 18 }}>🏠</Text>,
+          onPress: () => console.log('Home pressed'),
+        },
+        {
+          id: 'explore',
+          label: 'Explore',
+          icon: <Text style={{ fontSize: 18 }}>🧭</Text>,
+          onPress: () => console.log('Explore pressed'),
+        },
+        {
+          id: 'create',
+          label: 'Create',
+          icon: <Text style={{ fontSize: 18 }}>➕</Text>,
+          onPress: () => console.log('Create pressed'),
+        },
+        {
+          id: 'activity',
+          label: 'Activity',
+          icon: <Text style={{ fontSize: 18 }}>❤️</Text>,
+          onPress: () => console.log('Activity pressed'),
+        },
+        {
+          id: 'profile',
+          label: 'Profile',
+          icon: <Text style={{ fontSize: 18 }}>👤</Text>,
+          onPress: () => console.log('Profile pressed'),
+        },
+      ];
+      
+      return (
+        <div style={{ width: '100%', maxWidth: '500px' }}>
+          <BottomNav items={items} activeItemId="create" />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Interactive Example
+
+<Canvas>
+  <Story name="Interactive">
+    {() => {
+      const [activeTab, setActiveTab] = React.useState('home');
+      
+      const items = [
+        {
+          id: 'home',
+          label: 'Home',
+          icon: <Text style={{ fontSize: 20 }}>🏠</Text>,
+          onPress: () => setActiveTab('home'),
+        },
+        {
+          id: 'search',
+          label: 'Search',
+          icon: <Text style={{ fontSize: 20 }}>🔍</Text>,
+          onPress: () => setActiveTab('search'),
+        },
+        {
+          id: 'favorites',
+          label: 'Favorites',
+          icon: <Text style={{ fontSize: 20 }}>⭐</Text>,
+          onPress: () => setActiveTab('favorites'),
+        },
+        {
+          id: 'profile',
+          label: 'Profile',
+          icon: <Text style={{ fontSize: 20 }}>👤</Text>,
+          onPress: () => setActiveTab('profile'),
+        },
+      ];
+      
+      return (
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          <div style={{ 
+            padding: '20px', 
+            textAlign: 'center', 
+            backgroundColor: '#f5f5f5', 
+            borderRadius: '8px',
+            marginBottom: '16px'
+          }}>
+            <Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
+              Current Tab: {activeTab}
+            </Text>
+            <Text style={{ color: '#666', marginTop: '4px' }}>
+              Click on the tabs below to see the active state change
+            </Text>
+          </div>
+          <BottomNav items={items} activeItemId={activeTab} />
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Dark Mode Support
+
+<Canvas>
+  <Story name="Dark Mode">
+    {() => {
+      const items = [
+        {
+          id: 'home',
+          label: 'Home',
+          icon: <Text style={{ fontSize: 20 }}>🏠</Text>,
+          onPress: () => console.log('Home pressed'),
+        },
+        {
+          id: 'search',
+          label: 'Search',
+          icon: <Text style={{ fontSize: 20 }}>🔍</Text>,
+          onPress: () => console.log('Search pressed'),
+        },
+        {
+          id: 'notifications',
+          label: 'Notifications',
+          icon: <Text style={{ fontSize: 20 }}>🔔</Text>,
+          onPress: () => console.log('Notifications pressed'),
+        },
+        {
+          id: 'profile',
+          label: 'Profile',
+          icon: <Text style={{ fontSize: 20 }}>👤</Text>,
+          onPress: () => console.log('Profile pressed'),
+        },
+      ];
+      
+      return (
+        <div style={{ backgroundColor: '#1a1a1a', padding: '24px', borderRadius: '12px' }}>
+          <div style={{ width: '100%', maxWidth: '400px' }}>
+            <BottomNav 
+              items={items} 
+              activeItemId="notifications"
+              style={{ backgroundColor: '#2a2a2a' }}
+            />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={BottomNav} />
+
+## Design Tokens
+
+The BottomNav component uses the following design tokens:
+
+- **Colors**: `colors.surface`, `colors.primary`, `colors.textSecondary`
+- **Typography**: `typography.fontSize.xs`, `typography.fontWeight.medium`
+- **Spacing**: `spacing.xs`, `spacing.md`, `spacing.lg`
+- **Radius**: `radius.lg`
+- **Dimensions**: `dimensions.navBarHeight`, `dimensions.touchTarget`
+- **Shadows**: `shadows.lg`
+
+## Accessibility
+
+- Proper `accessibilityRole="tab"` for each navigation item
+- Support for `accessibilityLabel` and `accessibilityState`
+- Minimum 44pt touch targets
+- Screen reader compatible
+- Keyboard navigation support (web)
+- Clear visual indication of active states
+
+## Usage Guidelines
+
+### Do
+- Use 3-5 navigation items for optimal usability
+- Provide clear, concise labels for each tab
+- Use consistent iconography across tabs
+- Indicate the active tab clearly
+- Place the most important tab first (usually Home)
+
+### Don't
+- Don't use more than 5 tabs (consider using a drawer or different navigation pattern)
+- Don't use long labels that might wrap or truncate
+- Don't change the order of tabs dynamically
+- Don't use bottom navigation for hierarchical navigation
+- Don't make tabs too small to tap comfortably
+
+## Navigation Patterns
+
+### Tab-Based Navigation
+Perfect for apps with distinct, equally important sections:
+
+```jsx
+const navigationItems = [
+  { id: 'home', label: 'Home', icon: <HomeIcon /> },
+  { id: 'search', label: 'Search', icon: <SearchIcon /> },
+  { id: 'profile', label: 'Profile', icon: <ProfileIcon /> },
+];
+```
+
+### Content Categories
+Use for apps with different content types:
+
+```jsx
+const contentTabs = [
+  { id: 'feed', label: 'Feed', icon: <FeedIcon /> },
+  { id: 'discover', label: 'Discover', icon: <DiscoverIcon /> },
+  { id: 'library', label: 'Library', icon: <LibraryIcon /> },
+];
+```
+
+## Integration with React Navigation
+
+```jsx
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNav } from '@/components/ui/BottomNav';
+
+const Tab = createBottomTabNavigator();
+
+function CustomTabBar({ state, descriptors, navigation }) {
+  const items = state.routes.map((route, index) => ({
+    id: route.key,
+    label: descriptors[route.key].options.tabBarLabel || route.name,
+    icon: descriptors[route.key].options.tabBarIcon,
+    onPress: () => navigation.navigate(route.name),
+  }));
+
+  return (
+    <BottomNav 
+      items={items} 
+      activeItemId={state.routes[state.index].key} 
+    />
+  );
+}
+```</Canvas>
