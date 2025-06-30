@@ -32,7 +32,7 @@ const events: Event[] = [
   {"time": "12:00 PM", "title": "TERM ENDS - half day", "date": "Friday 11th July", "location": "", "status": "upcoming"}
 ];
 
-const MainParent: React.FC = () => {
+const MainParent1: React.FC = () => {
   // Group events by date
   const groupedEvents = events.reduce((acc, event) => {
     const date = event.date;
