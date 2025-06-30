@@ -444,3 +444,7 @@ if __name__ == "__main__":
         return handle_pubsub(request)
     
     app.run(host='0.0.0.0', port=8080, debug=True)
+
+
+
+  #docker file should point here
