@@ -382,3 +382,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+  #we couuld receive real time to supabase but essentially sub/pub shoudl trigger it to the database and we read it from there
