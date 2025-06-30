@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
-import  MainParent from '@ui/components/ui/MainParent'
+// import  MainParent from '@ui/components/ui/MainParent'
+import { Calendar, MapPin, Clock } from 'lucide-react-native';
+
 
 export default function HomeScreen() {
   const { user, signOut } = useAuth();
