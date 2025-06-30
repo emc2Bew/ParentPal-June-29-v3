@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Calendar, MapPin, Clock } from 'lucide-react-native';
-import { Calendar, MapPin, Clock } from 'lucide-react-native';
 
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
