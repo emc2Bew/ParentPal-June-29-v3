@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
+import { MainParent } from '@ui/components/ui/MainParent'
 
 export default function HomeScreen() {
   const { user, signOut } = useAuth();
