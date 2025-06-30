@@ -207,7 +207,7 @@ export default function HomeScreen() {
    <View style={styles.container}>
   <Text style={styles.title}>Welcome Home!</Text>
   {(user?.email === 'parent007@gmail.com' ||
-    user?.email === 'emc2.bew.1@gmail.com') && <MainParent1 />}
+    user?.email === 'emc2.bew.1@gmail.com') && <MainParent />}
   <Text style={styles.subtitle}>Logged in as: {user?.email}</Text>
   {/* <Text style={styles.subtitle}>
     Logged in as: {user?.email}
