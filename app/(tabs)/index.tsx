@@ -10,21 +10,21 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Home!</Text>
-      {(user?.email === 'parent007@gmail.com' ||
-        user?.email === 'emc2.bew.1@gmail.com' && <MainParent />})
-      <Text style={styles.subtitle}>Logged in as: {user?.email}</Text>
-      {/* <Text style={styles.subtitle}>
-        Logged in as: {user?.email}
-      </Text>
-      <Button
-        title="Sign Out"
-        onPress={handleSignOut}
-        variant="outline"
-        style={styles.signOutButton}
-      /> */}
-    </View>
+   <View style={styles.container}>
+  <Text style={styles.title}>Welcome Home!</Text>
+  {(user?.email === 'parent007@gmail.com' ||
+    user?.email === 'emc2.bew.1@gmail.com') && <MainParent />}
+  <Text style={styles.subtitle}>Logged in as: {user?.email}</Text>
+  {/* <Text style={styles.subtitle}>
+    Logged in as: {user?.email}
+  </Text>
+  <Button
+    title="Sign Out"
+    onPress={handleSignOut}
+    variant="outline"
+    style={styles.signOutButton}
+  /> */}
+</View>
   );
 }
 
