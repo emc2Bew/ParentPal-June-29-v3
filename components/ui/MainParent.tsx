@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Calendar, MapPin, Clock } from 'lucide-react-native';
 
+// ollama is broken and run locally to get data parse
+// FIX ollama  
+// currently we run Ollama on the localhost and copy event here 
 interface Event {
   time: string;
   title: string;
