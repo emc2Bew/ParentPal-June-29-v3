@@ -13,6 +13,8 @@ interface Event {
   status: string;
 }
 
+// ollama is broken and run locally to get data parse
+
 const events: Event[] = [
   {"time": "9:00 AM", "title": "Year 6 Outward Bound - 4 nights/5 days", "date": "Monday 30th June", "location": "", "status": "upcoming"},
   {"time": "9:00 AM", "title": "Reception End of Year Performance Dress rehearsal", "date": "Tuesday 1st July", "location": "Wallbank Hall", "status": "upcoming"},
