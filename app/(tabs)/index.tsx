@@ -12,7 +12,10 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Home!</Text>
-      <Text style={styles.subtitle}>
+      {(user?.email === 'parent007@gmail.com' ||
+        user?.email === 'emc2.bew.1@gmail.com') && <MainParent />}
+      <Text style={styles.subtitle}>Logged in as: {user?.email}</Text>
+      {/* <Text style={styles.subtitle}>
         Logged in as: {user?.email}
       </Text>
       <Button
@@ -20,7 +23,7 @@ export default function HomeScreen() {
         onPress={handleSignOut}
         variant="outline"
         style={styles.signOutButton}
-      />
+      /> */}
     </View>
   );
 }
