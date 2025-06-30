@@ -33,6 +33,169 @@ const events: Event[] = [
   {"time": "12:00 PM", "title": "TERM ENDS - half day", "date": "Friday 11th July", "location": "", "status": "upcoming"}
 ];
 
+const MainParent: React.FC = () => {
+  // Group events by date
+  const groupedEvents = events.reduce((acc, event) => {
+    const date = event.date;
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(event);
+    return acc;
+  }, {} as Record<string, Event[]>);
+
+  const getProgressBarColor = (status: string) => {
+    switch (status) {
+      case 'updated':
+        return '#F4A261';
+      case 'cancelled':
+        return '#E76F51';
+      case 'upcoming':
+      case 'new':
+      default:
+        return '#4A7C59';
+    }
+  };
+
+  const getStatusLabel = (status: string) => {
+    switch (status) {
+      case 'updated':
+        return 'Updated';
+      case 'cancelled':
+        return 'Cancelled';
+      case 'upcoming':
+        return 'Upcoming';
+      case 'new':
+        return 'New';
+      default:
+        return 'Upcoming';
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    // Extract just the day and month from the date string
+    const parts = dateString.split(' ');
+    return `${parts[1]} ${parts[2]}`;
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          <View style={styles.headerRow}>
+            <Text style={styles.title}>School Events</Text>
+            <Calendar size={24} color="#666666" />
+          </View>
+        </View>
+      </View>
+
+      {/* Content */}
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+        {Object.entries(groupedEvents).map(([date, dayEvents]) => (
+          <View key={date} style={styles.dateSection}>
+            {/* Date Header */}
+            <View style={styles.dateHeader}>
+              <Text style={styles.dateTitle}>
+                {formatDate(date)}
+              </Text>
+              <Text style={styles.dateSubtitle}>{date.split(' ')[0]}</Text>
+            </View>
+
+            {/* Events for this date */}
+            <View style={styles.eventsContainer}>
+              {dayEvents.map((event, index) => (
+                <View
+                  key={`${date}-${index}`}
+                  style={styles.eventCard}
+                >
+                  {/* Status indicator bar */}
+                  <View
+                    style={[
+                      styles.statusBar,
+                      { backgroundColor: getProgressBarColor(event.status) }
+                    ]}
+                  />
+
+                  {/* Event content */}
+                  <View style={styles.eventContent}>
+                    <View style={styles.eventHeader}>
+                      <View style={styles.eventInfo}>
+                        <View style={styles.timeRow}>
+                          <Clock size={16} color="#666666" />
+                          <Text style={styles.timeText}>
+                            {event.time}
+                          </Text>
+                        </View>
+                        <Text style={styles.eventTitle}>
+                          {event.title}
+                        </Text>
+                      </View>
+                      
+                      {/* Status badge */}
+                      <View style={styles.statusBadgeContainer}>
+                        <View
+                          style={[
+                            styles.statusBadge,
+                            { backgroundColor: getProgressBarColor(event.status) }
+                          ]}
+                        >
+                          <Text style={styles.statusBadgeText}>
+                            {getStatusLabel(event.status)}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+
+                    {/* Location */}
+                    {event.location ? (
+                      <View style={styles.locationRow}>
+                        <MapPin size={16} color="#666666" />
+                        <Text style={styles.locationText}>{event.location}</Text>
+                      </View>
+                    ) : null}
+                  </View>
+                </View>
+              ))}
+            </View>
+          </View>
+        ))}
+
+        {/* Summary footer */}
+        <View style={styles.summaryCard}>
+          <View style={styles.summaryContent}>
+            <Text style={styles.summaryTitle}>
+              End of Term Summary
+            </Text>
+            <Text style={styles.summarySubtitle}>
+              {events.length} events scheduled
+            </Text>
+            <View style={styles.statsGrid}>
+              <View style={styles.statItem}>
+                <Text style={styles.statNumber}>
+                  {events.filter(e => e.location).length}
+                </Text>
+                <Text style={styles.statLabel}>
+                  With Locations
+                </Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={[styles.statNumber, { color: '#E8833A' }]}>
+                  {events.filter(e => e.time === 'All Day').length}
+                </Text>
+                <Text style={styles.statLabel}>
+                  All Day Events
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
+  );
+};
+
+
 
 export default function HomeScreen() {
   const { user, signOut } = useAuth();
