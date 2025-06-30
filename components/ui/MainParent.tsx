@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Calendar, MapPin, Clock } from 'lucide-react-native';
 
 interface Event {
@@ -74,118 +75,303 @@ const MainParent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F1E8]">
+    <View style={styles.container}>
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-100">
-        <div className="px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-[#2C2C2C]">School Events</h1>
-            <Calendar className="w-6 h-6 text-[#666666]" />
-          </div>
-        </div>
-      </div>
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          <View style={styles.headerRow}>
+            <Text style={styles.title}>School Events</Text>
+            <Calendar size={24} color="#666666" />
+          </View>
+        </View>
+      </View>
 
       {/* Content */}
-      <div className="px-4 py-6 max-w-md mx-auto">
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
         {Object.entries(groupedEvents).map(([date, dayEvents]) => (
-          <div key={date} className="mb-8">
+          <View key={date} style={styles.dateSection}>
             {/* Date Header */}
-            <div className="mb-4">
-              <h2 className="text-xl font-semibold text-[#2C2C2C] mb-1">
+            <View style={styles.dateHeader}>
+              <Text style={styles.dateTitle}>
                 {formatDate(date)}
-              </h2>
-              <p className="text-sm text-[#666666]">{date.split(' ')[0]}</p>
-            </div>
+              </Text>
+              <Text style={styles.dateSubtitle}>{date.split(' ')[0]}</Text>
+            </View>
 
             {/* Events for this date */}
-            <div className="space-y-3">
+            <View style={styles.eventsContainer}>
               {dayEvents.map((event, index) => (
-                <div
+                <View
                   key={`${date}-${index}`}
-                  className="bg-white rounded-xl p-4 shadow-sm border border-gray-50 transition-all duration-200 hover:shadow-md relative overflow-hidden"
+                  style={styles.eventCard}
                 >
                   {/* Status indicator bar */}
-                  <div
-                    className="absolute left-0 top-0 w-1 h-full"
-                    style={{
-                      backgroundColor: getProgressBarColor(event.status)
-                    }}
+                  <View
+                    style={[
+                      styles.statusBar,
+                      { backgroundColor: getProgressBarColor(event.status) }
+                    ]}
                   />
 
                   {/* Event content */}
-                  <div className="ml-3">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Clock className="w-4 h-4 text-[#666666]" />
-                          <span className="text-sm font-medium text-[#666666]">
+                  <View style={styles.eventContent}>
+                    <View style={styles.eventHeader}>
+                      <View style={styles.eventInfo}>
+                        <View style={styles.timeRow}>
+                          <Clock size={16} color="#666666" />
+                          <Text style={styles.timeText}>
                             {event.time}
-                          </span>
-                        </div>
-                        <h3 className="text-base font-medium text-[#2C2C2C] leading-tight mb-2">
+                          </Text>
+                        </View>
+                        <Text style={styles.eventTitle}>
                           {event.title}
-                        </h3>
-                      </div>
+                        </Text>
+                      </View>
                       
                       {/* Status badge */}
-                      <div className="ml-3 flex-shrink-0">
-                        <span
-                          className="px-2 py-1 text-xs font-medium rounded-full text-white"
-                          style={{
-                            backgroundColor: getProgressBarColor(event.status)
-                          }}
+                      <View style={styles.statusBadgeContainer}>
+                        <View
+                          style={[
+                            styles.statusBadge,
+                            { backgroundColor: getProgressBarColor(event.status) }
+                          ]}
                         >
-                          {getStatusLabel(event.status)}
-                        </span>
-                      </div>
-                    </div>
+                          <Text style={styles.statusBadgeText}>
+                            {getStatusLabel(event.status)}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
 
                     {/* Location */}
-                    {event.location && (
-                      <div className="flex items-center gap-2 text-sm text-[#666666]">
-                        <MapPin className="w-4 h-4" />
-                        <span>{event.location}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                    {event.location ? (
+                      <View style={styles.locationRow}>
+                        <MapPin size={16} color="#666666" />
+                        <Text style={styles.locationText}>{event.location}</Text>
+                      </View>
+                    ) : null}
+                  </View>
+                </View>
               ))}
-            </div>
-          </div>
+            </View>
+          </View>
         ))}
 
         {/* Summary footer */}
-        <div className="mt-12 p-4 bg-white rounded-xl shadow-sm border border-gray-50">
-          <div className="text-center">
-            <h3 className="text-lg font-semibold text-[#2C2C2C] mb-2">
+        <View style={styles.summaryCard}>
+          <View style={styles.summaryContent}>
+            <Text style={styles.summaryTitle}>
               End of Term Summary
-            </h3>
-            <p className="text-sm text-[#666666] mb-3">
+            </Text>
+            <Text style={styles.summarySubtitle}>
               {events.length} events scheduled
-            </p>
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="p-3 bg-[#F5F1E8] rounded-lg">
-                <div className="text-2xl font-bold text-[#4A7C59]">
+            </Text>
+            <View style={styles.statsGrid}>
+              <View style={styles.statItem}>
+                <Text style={styles.statNumber}>
                   {events.filter(e => e.location).length}
-                </div>
-                <div className="text-xs text-[#666666] mt-1">
+                </Text>
+                <Text style={styles.statLabel}>
                   With Locations
-                </div>
-              </div>
-              <div className="p-3 bg-[#F5F1E8] rounded-lg">
-                <div className="text-2xl font-bold text-[#E8833A]">
+                </Text>
+              </View>
+              <View style={styles.statItem}>
+                <Text style={[styles.statNumber, { color: '#E8833A' }]}>
                   {events.filter(e => e.time === 'All Day').length}
-                </div>
-                <div className="text-xs text-[#666666] mt-1">
+                </Text>
+                <Text style={styles.statLabel}>
                   All Day Events
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F5F1E8',
+  },
+  header: {
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F3F4F6',
+  },
+  headerContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2C2C2C',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  content: {
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    maxWidth: 400,
+    alignSelf: 'center',
+    width: '100%',
+  },
+  dateSection: {
+    marginBottom: 32,
+  },
+  dateHeader: {
+    marginBottom: 16,
+  },
+  dateTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#2C2C2C',
+    marginBottom: 4,
+  },
+  dateSubtitle: {
+    fontSize: 14,
+    color: '#666666',
+  },
+  eventsContainer: {
+    gap: 12,
+  },
+  eventCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+    borderWidth: 1,
+    borderColor: '#F9FAFB',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  statusBar: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: 4,
+    height: '100%',
+  },
+  eventContent: {
+    marginLeft: 12,
+  },
+  eventHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: 8,
+  },
+  eventInfo: {
+    flex: 1,
+  },
+  timeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 4,
+  },
+  timeText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#666666',
+  },
+  eventTitle: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#2C2C2C',
+    lineHeight: 20,
+    marginBottom: 8,
+  },
+  statusBadgeContainer: {
+    marginLeft: 12,
+    flexShrink: 0,
+  },
+  statusBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  statusBadgeText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  locationText: {
+    fontSize: 14,
+    color: '#666666',
+  },
+  summaryCard: {
+    marginTop: 48,
+    padding: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+    borderWidth: 1,
+    borderColor: '#F9FAFB',
+  },
+  summaryContent: {
+    alignItems: 'center',
+  },
+  summaryTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#2C2C2C',
+    marginBottom: 8,
+  },
+  summarySubtitle: {
+    fontSize: 14,
+    color: '#666666',
+    marginBottom: 12,
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  statItem: {
+    padding: 12,
+    backgroundColor: '#F5F1E8',
+    borderRadius: 8,
+    alignItems: 'center',
+    minWidth: 80,
+  },
+  statNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A7C59',
+  },
+  statLabel: {
+    fontSize: 12,
+    color: '#666666',
+    marginTop: 4,
+    textAlign: 'center',
+  },
+});
 
 export default MainParent;
