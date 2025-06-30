@@ -1,0 +1,33 @@
+# Supabase Edge Function Cron Configuration
+# This file configures the reminder worker to run every minute
+
+functions:
+  - name: reminder-worker
+    schedule: "* * * * *"  # Every minute
+    timeout: 300s          # 5 minute timeout
+    memory: 512Mi
+    environment:
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      GOOGLE_CLIENT_EMAIL: ${GOOGLE_CLIENT_EMAIL}
+      GOOGLE_PRIVATE_KEY: ${GOOGLE_PRIVATE_KEY}
+      GOOGLE_PROJECT_ID: ${GOOGLE_PROJECT_ID}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      EXPO_ACCESS_TOKEN: ${EXPO_ACCESS_TOKEN}
+    
+    # Resource limits
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    
+    # Retry configuration
+    retry:
+      attempts: 3
+      backoff: exponential
+      initial_delay: 1s
+      max_delay: 60s
